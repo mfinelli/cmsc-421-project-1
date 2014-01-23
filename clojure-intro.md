@@ -54,7 +54,7 @@ Most experienced Clojurians use Emacs. Some use Vim. A few use Sublime Text or T
 
 Just don't use Notepad.
 
-In all seriousness, LISP programming is *much* easier with a good text editor - syntax highlighting and rainbow parentheses will make it much easier to understand Clojure code, so install appropriate plugins if you can.
+In all seriousness, LISP programming is *much* easier with a good text editor; syntax highlighting and rainbow parentheses will make it much easier to understand Clojure code, so install appropriate plugins if you can.
 
 Understanding Clojure
 ---------------------
@@ -83,11 +83,11 @@ due to operator precedence. In Clojure, the equivalent is
     
 ### REPL ###
 
-To start a REPL, enter "lein repl" at the terminal. This will display a prompt of "user=> " (I recommend experimenting with all of these examples as you read this tutorial.)
+To start a REPL, enter "lein repl" at the terminal. This will display a user prompt: "user=>" (I recommend experimenting with all of these examples as you read this tutorial.)
 
 Documentation can be called up interactively in the REPL. To view documentation on *name*, enter (doc name)
 
-"def" is a special form that creates a var. For example:
+(def) is a special form that creates a var. For example:
 
     user=> (def n 5)
     
@@ -143,7 +143,7 @@ To 'add' to a list (remember, you're not actually modifying the list, but rather
     
 #### Vectors ####
 
-Vectors are generally more useful then lists; they support efficient lookup by index. A vector literal uses square brackets, e.g. [1 1 2 3 5].
+Vectors are generally more useful then lists; they support efficient lookup by index (Clojure vectors are indexed from 0). A vector literal uses square brackets.
 
     user=> (nth [1 2 3 5] 2)
     3
@@ -168,7 +168,7 @@ Maps associate keys with values. Map literals use curly braces
 
 Note that in Clojure, the comma is actually *whitespace* and is only used to make code easier to read.
 
-Maps support (count) (conj) (assoc) (get) (contains?) and are functions of their keys.
+Some of the functions maps support include (count) (conj) (assoc) (get) (contains?) Maps are also functions of their keys (like vectors).
 
 #### Sets ####
 
@@ -182,8 +182,10 @@ Sets support 'removal' with disj
     #{2 3}
 
 Sets support (conj) and (contains?)
-    
-More information on data structures here:
+
+#### More Information ####
+
+More information on data structures:
 
 http://clojure.org/data_structures
 
@@ -208,7 +210,7 @@ Note that all functions return a value. In this case, nil, since (println) retur
     user=> (filter (fn [num] (even? num)) some-numbers)
     (2 8)
     
-(partial) is a higher-order function that creates a new function from an existing one with some of it's parameters instantiated. For example, suppose we want a function that always adds one
+(partial) is a higher-order function that creates a new function from an existing one with some of its parameters instantiated. For example, suppose we want a function that always adds one
 
     user=> (def add-one (partial + 1))
     user=> (add-one 5)
@@ -230,12 +232,30 @@ Of particular interest is (iterate). (iterate f x) returns a sequence of x, (f x
 
 But don't try it at the REPL. (iterate) produces an *infinite* **lazy** sequence. Calling (iterate inc 1) is requesting the infinite sequence (1 (inc 1) (inc (inc 1)) ...) i.e. a list of all the natural numbers.
 
-The REPL forces evaluation, so (iterate inc
+The REPL forces evaluation (so it can print results), so this is an endless loop and the REPL will hang. However, you can (take) the first few elements of the list
+
+    user=> (take 5 (iterate inc 1))
+    (1 2 3 4 5)
+    
+Or just request the (nth)
+
+    user=> (nth (iterate inc 1) 5)
+    6
+    
+Of course, (iterate) isn't *actually* producing an infinitely long list. Think of it more as a "promise" to create elements as necessary.
+
+(range) works similarly. (range start end) produces a lazy list starting at *start* and increasing by 1 until *end*. But (range) with *no* arguments results in a lazy list that goes from 0 to infinity. (Again, don't try it at the REPL).
+
+A lot of Clojure's built-in functions actually return lazy sequences. However, (nth) forces evaluation, and lazy sequences can be converted to a particular implementation as needed.
+
+More information:
+
+http://clojure.org/sequences
     
 Conditionals
 ------------
 
-Clojure considers nil and false to be false. *Everything else* (including zero) is true. (if) much like you'd expect
+Clojure considers nil and false to be false. *Everything else* (including zero) is true. (if) works much like you'd expect
 
     (def is-weekend true)
     
@@ -266,18 +286,37 @@ And some test numbers
 
     even?, neg?, odd?, pos?, zero?
 
-See (doc a-predicate) for more information.
+See (doc some-predicate) for more information.
 
 Iteration
 ---------
 
-(for) performs list comprehension and supports optional filtering using :when and :while
+(for) performs list comprehension and supports optional filtering using :when and :while. Consider the following code:
 
+    (def files ["a" "b" "c" "d" "e" "f" "g" "h"])
+    (def ranks (range 1 (inc 8)))
+    
+    (for [file files :when (not= file "c")
+          rank ranks :while (< rank 3)]
+      (str file rank))
+      
+This produces a *lazy* sequence (although it you'll see an actual result in the REPL, since the REPL forces evaluation). But if we want a 'concrete' sequence (for, say, efficient random access), we can convert it to a vector with vec
 
+    (vec
+      (for [file files :when (not= file "c")
+            rank ranks :while (< rank 3)]
+        (str file rank)))
 
+This returns:
+
+    ["a1" "a2" "b1" "b2" "d1" "d2" "e1" "e2" "f1" "f2" "g1" "g2" "h1" "h2"]
+        
 Recursion
 ---------
 
+See [recursion](http://java.ociweb.com/mark/clojure/article.html#Recursion).
+
+(That link *actually* links to a good explanation of how recursion works in Clojure. But you shouldn't need it for projects 1 or 2 and projects 3 and 4 will probably be in Python.)
 
 Help with Clojure
 -----------------
@@ -293,3 +332,7 @@ http://java.ociweb.com/mark/clojure/article.html
 A more concise guide to Clojure:
 
 http://www.cis.upenn.edu/~matuszek/Concise%20Guides/Concise%20Clojure.html
+
+The official Clojure cheet sheet:
+
+http://clojure.org/cheatsheet
