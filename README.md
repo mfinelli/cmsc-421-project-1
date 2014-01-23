@@ -33,7 +33,7 @@ In the above example, 2 corresponds to a queen on a2, 5 corresponds to a queen o
 Requirements
 ------------
 
-For project 1, write the following functions in clojure:
+For project 1, write the following functions in Clojure:
 
     (qextends? partial-sol rank)
     
@@ -41,11 +41,11 @@ Given partial solution vector *partial-sol* of length k, and candidate queen pla
 
     (qextend n partial-sol-list)
 
-Given a vector *partial-sol-list* of all partial solutions of length k (e.g. [[1 3] [1 4] ...]), return a vector of all partial solutions of length k + 1. *n* is the size of the board (i.e. an n x n board).
+Given a list *partial-sol-list* of all partial solutions of length k (e.g. [[1 3] [1 4] ...]), return a list of all partial solutions of length k + 1. *n* is the size of the board (i.e. an n x n board).
 
     (sol-count n)
     
-Return the total number of n-queens solutions on an n x n board.
+Returns the total number of n-queens solutions on an n x n board.
 
     (sol-density n)
     
