@@ -38,8 +38,8 @@ Syntax
             
 * Data structure literals
 
-    [1 2 3 4] ; vector
-    {"a" 1, "b" 2} ; map
-    \#{"a" "b"} ; set
+    * [1 2 3 4] ; vector
+    * {"a" 1, "b" 2} ; map
+    * \#{"a" "b"} ; set
     
 * All built in data structures are immutable and persistent
