@@ -12,9 +12,9 @@ Otherwise, keep reading...
 Getting Clojure
 ---------------
 
-Note: If you're running Windows and don't have [cygwin](http://cygwin.com/) installed, I *strongly* recommend installing cygwin first (including either the wget or curl package).
+Note: If you're running Windows and don't have [cygwin](http://cygwin.com/) installed, I *strongly* recommend installing cygwin first (including either the wget or curl package) and running all of the following commands from the cygwin terminal.
 
-[Leiningen](http://leiningen.org/#install) is the easiest way to get/use Clojure. Download the script, place it somewhere on your $PATH and set it to be executable. Step by step terminal instructions below:
+[Leiningen](http://leiningen.org/#install) is the easiest way to get/use Clojure. Download the script, place it somewhere on your $PATH, set it to be executable and run "lein self-install". Step by step terminal instructions below:
 
     mkdir ~/bin
     cd ~/bin
@@ -26,12 +26,7 @@ Note: If you're running Windows and don't have [cygwin](http://cygwin.com/) inst
     chmod a+x ~/bin/lein
     lein self-install
     
-Place the following in your ~/.lein/profiles.clj (create profiles.clj if necessary). You don't *need* to do this right away, but you might as well set it up now.
-
-    {:user {:plugins [[lein-exec "0.3.1"]]
-        :dependencies [[org.clojure/core.logic "0.8.5"]]}}
-
-To see if everything worked, run
+To check the installation, start up a read-eval-print-loop with
 
     lein repl
     
@@ -46,15 +41,24 @@ You should see
     nil
     
 Use Control+D or (exit) or (quit) to leave the REPL.
+    
+In addition, place the following in your ~/.lein/profiles.clj (create profiles.clj if necessary). You don't *need* to do this right away, but it will be useful later.
+
+    {:user {:plugins [[lein-exec "0.3.1"]]
+            :dependencies [[org.clojure/core.logic "0.8.5"]]}}
+
+To check if dependencies are working correctly, try:
+    
+    user=> (require 'clojure.core.logic)
+    nil
+
 
 Writing Clojure
 ---------------
 
-Most experienced Clojurians use Emacs. Some use Vim. A few use Sublime Text or Textmate.
+Most experienced Clojurians use Emacs (clojure-mode) or Vim (vim-clojure-static, which ships with Vim versions 7.3.803 and later). Other popular text editors include Sublime Text and Textmate.
 
-Just don't use Notepad.
-
-In all seriousness, LISP programming is *much* easier with a good text editor; syntax highlighting and rainbow parentheses will make it much easier to understand Clojure code, so install appropriate plugins if you can.
+LISP programming is *much* easier with good text editor support. You may also want to consider installing a rainbow parentheses plugin for your editor.
 
 Understanding Clojure
 ---------------------
@@ -65,7 +69,7 @@ Roughly speaking, everything in Clojure is of the following form
 
     (function-name arg1 arg2 ...)
     
-and everything returns a value (functions that are called only for their side-effects typically return nil, which is similar to Java's null or Python's None). It may help to think of this as
+and everything returns a value (functions that are called only for their side-effects typically return nil, which is similar to Java's null or Python's None). It may help to think of the above as
 
     function-name(arg1, arg2, ...)
     
@@ -103,7 +107,8 @@ Note that a variable bound by def is a global variable. For locals, use let
              y + 1)
     2
     
-
+However, locals created in a let are not variables. Once created, their values never change (similar to a Java final variable).
+    
 ### Data Structures ###
 
 Clojure has literal support for (singly-linked) lists, vectors, sets and maps. Unlike most languages, all of Clojure's built-in collections are *immutable* (i.e. they can't be modified). Functions that act on Clojure's data structures actually return *new* data structures representing the appropriate action. Thanks to the programming sorcery of [persistence](https://en.wikipedia.org/wiki/Persistent_data_structure), this is all done in a time and memory-efficient manner.
@@ -124,7 +129,7 @@ A word of warning though, quote (') *completely* holds evaluation, so if you quo
     user=> '(1 (+ 1 2) 3)
     (1 (+ 1 2) 3)
     
-you'll get back a list that contains the list (+ 1 2). To evaluate the elements of the list, use (list) instead:
+you'll get back a list that *contains* the list (+ 1 2). To evaluate the elements of the list, use (list) instead:
 
     user=> (list 1 (+ 1 2) 3)
     (1 3 3)
@@ -168,7 +173,7 @@ Maps associate keys with values. Map literals use curly braces
 
 Note that in Clojure, the comma is actually *whitespace* and is only used to make code easier to read.
 
-Some of the functions maps support include (count) (conj) (assoc) (get) (contains?) Maps are also functions of their keys (like vectors).
+Some of the functions maps support include (count) (conj) (assoc) (dissoc) (get) (contains?) Maps are also functions of their keys.
 
 #### Sets ####
 
@@ -187,7 +192,7 @@ Sets support (conj) and (contains?)
 
 More information on data structures:
 
-http://clojure.org/data_structures
+[http://clojure.org/data_structures](http://clojure.org/data_structures)
 
 ### Functions ###
 
@@ -230,7 +235,7 @@ And (reduce) which folds a binary function across a sequence
 
 Of particular interest is (iterate). (iterate f x) returns a sequence of x, (f x), (f (f x)), etc...
 
-But don't try it at the REPL. (iterate) produces an *infinite* **lazy** sequence. Calling (iterate inc 1) is requesting the infinite sequence (1 (inc 1) (inc (inc 1)) ...) i.e. a list of all the natural numbers.
+But don't try it at the REPL. (iterate) produces an *infinite* **lazy** sequence. Calling (iterate inc 1) is requesting the infinite sequence 1, (inc 1), (inc (inc 1)) ... i.e. a list of all the natural numbers.
 
 The REPL forces evaluation (so it can print results), so this is an endless loop and the REPL will hang. However, you can (take) the first few elements of the list
 
@@ -250,7 +255,7 @@ A lot of Clojure's built-in functions actually return lazy sequences. However, (
 
 More information:
 
-http://clojure.org/sequences
+[http://clojure.org/sequences](http://clojure.org/sequences)
     
 Conditionals
 ------------
@@ -264,13 +269,13 @@ Clojure considers nil and false to be false. *Everything else* (including zero) 
       (do (println "work")
           (println "sleep")))
           
-Although the (do) form is necessary since (if) has to be of the form
+Here, the (do) form is necessary since (if) has to be of the form
 
     (if condition
       then-expr
       else-expr)
 
-(do) "wraps" several expressions as a single expression.
+(do) "wraps" several expressions as a single expression and executes them in order. It returns the value of the last expression evaluated
 
 ### Predicates ###
 
@@ -323,16 +328,16 @@ Help with Clojure
 
 A nicer API (with examples) is available online:
 
-http://clojuredocs.org/clojure_core
+[http://clojuredocs.org/clojure_core](http://clojuredocs.org/clojure_core)
 
 A more comprehensive introduction to Clojure:
 
-http://java.ociweb.com/mark/clojure/article.html
+[http://java.ociweb.com/mark/clojure/article.html](http://java.ociweb.com/mark/clojure/article.html)
 
-A more concise guide to Clojure:
+A more concise introduction to Clojure:
 
-http://www.cis.upenn.edu/~matuszek/Concise%20Guides/Concise%20Clojure.html
+[http://www.cis.upenn.edu/~matuszek/Concise%20Guides/Concise%20Clojure.html](http://www.cis.upenn.edu/~matuszek/Concise%20Guides/Concise%20Clojure.html)
 
 The official Clojure cheet sheet:
 
-http://clojure.org/cheatsheet
+[http://clojure.org/cheatsheet](http://clojure.org/cheatsheet)
