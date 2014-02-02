@@ -1,4 +1,4 @@
-Differences from Other Lisps
+Differences with other Lisps
 ============================
 
 The official "Differences with other Lisps" list:
