@@ -28,7 +28,7 @@ However, the *number* of different ways the n queens can be placed on an n x n c
 
     [2 5 7 1 3 8 6 4]
     
-In the above example, 2 corresponds to a queen on a2, 5 corresponds to a queen on b5, etc... Note that this vector is a solution to n-queens for n=8. It's also a *partial* solution for n=9; [2 5 7 1 3 8 6 4 9] is the complete solution for n=9.
+In the above example, 2 corresponds to a queen on a2, 5 corresponds to a queen on b5, etc... Note that this vector is a solution to n-queens for n=8. It's also a *partial* solution for n=9; [2 5 7 1 3 8 6 4 9] a the complete solution for n=9.
 
 Requirements
 ------------
@@ -49,14 +49,16 @@ Returns the total number of n-queens solutions on an n x n board.
 
     (sol-density n)
     
-Return the *density* of solutions on an n x n board where density is number of solutions / number of possible placements (only consider placements that have exactly one queen per file).
+Return the *density* of solutions on an n x n board where density is number of solutions / number of possible placements. Only consider placements that have *exactly* one queen per file (since this is the only type of placement the board representation can represent.)
 
 (We won't test sol-count or sol-density on n < 1, so don't worry about the number of "solutions" for a board of size 0.)
-   
+
+Finally, plot a graph of solution count as a function of board size (n) from n = 1 to 10. (You may use whatever plotting software you like.)
+
 Submission
 ----------
 
-Name your file lastname_project1.clj and push it (and *only* it) to the submit server.
+Name your code lastname_project1.clj, your plot lastname_project1.png and push it to the submit server
 
 Note that we will be grading your projects by script, therefore it is very important to use the *exact* function names and arities described above. (You may change the name of the formal parameters if you wish, as this will not affect the grading scripts.)
 
