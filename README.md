@@ -28,7 +28,7 @@ However, the *number* of different ways the n queens can be placed on an n x n c
 
     [2 5 7 1 3 8 6 4]
     
-In the above example, 2 corresponds to a queen on a2, 5 corresponds to a queen on b5, etc... Note that this vector is a solution to n-queens for n=8. It's also a *partial* solution for n=9; [2 5 7 1 3 8 6 4 9] a the complete solution for n=9.
+In the above example, 2 corresponds to a queen on a2, 5 corresponds to a queen on b5, etc... Note that this vector is a solution to n-queens for n=8. It's also a *partial* solution for n=9; [2 5 7 1 3 8 6 4 9] is a complete solution for n=9.
 
 Requirements
 ------------

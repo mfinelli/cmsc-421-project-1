@@ -14,7 +14,9 @@ Getting Clojure
 
 Note: If you're running Windows and don't have [cygwin](http://cygwin.com/) installed, I *strongly* recommend installing cygwin first (including either the wget or curl package) and running all of the following commands from the cygwin terminal.
 
-[Leiningen](http://leiningen.org/#install) is the easiest way to get/use Clojure. Download the script, place it somewhere on your $PATH, set it to be executable and run "lein self-install". Step by step terminal instructions below:
+**Note: Clojure requires the [java runtime environment](http://java.com/en/download/index.jsp).** Most computers should already have this installed; you can quickly verify this by typing "java -version" at the terminal.
+
+[Leiningen](http://leiningen.org/#install) is the easiest way to get/use Clojure. Download the script, place it somewhere on your $PATH, set lein to be executable and run "lein self-install". Step by step terminal instructions below:
 
     mkdir ~/bin
     cd ~/bin
@@ -25,6 +27,8 @@ Note: If you're running Windows and don't have [cygwin](http://cygwin.com/) inst
     
     chmod a+x ~/bin/lein
     lein self-install
+    
+(If ~/bin isn't already on your $PATH, and you're on cygwin/linux put "export PATH=$PATH:~/bin" in your .bashrc; on OS X, put it in your .bash_profile)
     
 To check the installation, start up a read-eval-print-loop with
 
@@ -52,13 +56,16 @@ To check if dependencies are working correctly, try:
     user=> (require 'clojure.core.logic)
     nil
 
-
 Writing Clojure
 ---------------
 
 Most experienced Clojurians use Emacs (clojure-mode) or Vim (vim-clojure-static, which ships with Vim versions 7.3.803 and later). Other popular text editors include Sublime Text and Textmate.
 
 LISP programming is *much* easier with good text editor support. You may also want to consider installing a rainbow parentheses plugin for your editor.
+
+Clojure source files have a .clj extension. You can read and evaluate a source file in the repl with
+
+    user=> (load-file "source_file.clj")
 
 Understanding Clojure
 ---------------------
