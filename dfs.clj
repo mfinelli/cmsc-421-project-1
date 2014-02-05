@@ -87,7 +87,7 @@
 ;; execution will jump back to the recursion point with new bindings.
 ;; In this case, (vector initial-state) is the only initial binding
 ;;
-;; Note that function definitions also act as recur target
+;; Note that function definitions can also act as recur target.
 
 (defn bfs [initial-state]
   (loop [frontier (queue initial-state)]
