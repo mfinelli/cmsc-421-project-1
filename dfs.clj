@@ -6,12 +6,12 @@
   ([] clojure.lang.PersistentQueue/EMPTY)
   ([& items] (apply conj (queue) items)))
 
-;; Use (vec some-queue) to convert queues to vectors
+;; Use (vec some-queue) to convert queues to vectors.
 ;; Vectors have a *literal* representation in the repl for easy examination.
-
-;; Vectors act as stacks. Items get pushed on the end (right) and popped from the end.
 ;;
-;; For queues, items get pushed on the end and popped from the front (left)
+;; Vectors act as stacks. Items get pushed on the end (right).
+;;
+;; Queues push on right and pop from (left)
 
 (def graph
   "A simple binary tree"
@@ -23,10 +23,9 @@
    :f [:l :m]
    :g [:n :o]})
 
-(defn expand
-  "Lookup children of state in graph."
-  [state]
-    (graph state))
+(defn expand [state]
+  "Expand state. (In this case, lookup the key state in the hash-map graph.)"
+  (get graph state))
 
 (defn search-step [frontier]
   "Conduct a single search step and print results.
@@ -47,13 +46,48 @@
 
 ;; initialize with (search-step (queue :a)) or (search-step [:a])
 
-(defn dfs [initial-state max-depth]
+(defn dfs-depth-limited [initial-state max-depth]
   (let [frontier (vector initial-state)]
     (dorun max-depth
       (iterate search-step frontier))))
 
-(defn bfs [initial-state max-depth]
+(defn bfs-depth-limited [initial-state max-depth]
   (let [frontier (queue initial-state)]
     (dorun max-depth
       (iterate search-step frontier))))
+
+(def not-nil? (complement nil?))
+
+(defn dfs-lazy [initial-state]
+  (let [frontier (vector initial-state)]
+    (dorun
+      (take-while not-nil?
+        (iterate search-step frontier)))))
+
+(defn bfs-lazy [initial-state]
+  (let [frontier (queue initial-state)]
+    (dorun
+      (take-while not-nil?
+        (iterate search-step frontier)))))
+
+;;;
+
+(defn dfs [initial-state]
+  (loop [frontier (vector initial-state)]
+    (if (empty? frontier)
+      nil
+      (recur (search-step frontier)))))
+
+;; (loop [bindings*] exprs*) acts as a recur target
+;; The (recur) expression must match the arity of the recursion point,
+;; execution will jump back to the recursion point with new bindings.
+;; In this case, (vector initial-state) is the only initial binding
+;;
+;; Note that function definitions also act as recur target
+
+(defn bfs [initial-state]
+  (loop [frontier (queue initial-state)]
+    (if (empty? frontier)
+      nil
+      (recur (search-step frontier)))))
 
