@@ -7,11 +7,13 @@
   ([& items] (apply conj (queue) items)))
 
 ;; Use (vec some-queue) to convert queues to vectors.
-;; Vectors have a *literal* representation in the repl for easy examination.
+;; Vectors have a literal representation in the repl for easy examination.
+;; Queues look like: #<PersistentQueue clojure.lang.PersistentQueue@1>
+;; (repl representation does not display elements.)
 ;;
-;; Vectors act as stacks. Items get pushed on the end (right).
+;; Vectors act as stacks. Items get pushed/popped from the end (right).
 ;;
-;; Queues push on right and pop from (left)
+;; Queues push items onto the end and pop from the front (left).
 
 (def graph
   "A simple binary tree"
