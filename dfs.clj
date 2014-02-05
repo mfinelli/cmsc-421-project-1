@@ -64,13 +64,15 @@
       (take-while not-nil?
         (iterate search-step frontier)))))
 
+;; (iterate) and (take-while) are lazy; (dorun) forces evaluation
+
 (defn bfs-lazy [initial-state]
   (let [frontier (queue initial-state)]
     (dorun
       (take-while not-nil?
         (iterate search-step frontier)))))
 
-;;;
+;;
 
 (defn dfs [initial-state]
   (loop [frontier (vector initial-state)]
