@@ -1,7 +1,8 @@
 ;; (load-file "dfs.clj")
+;; loads dfs.clj into the repl
 
 (defn queue
-  "Clojure lacks a queue literal; this is a hack.
+  "Clojure lacks a queue literal; this will act similar to (vector).
    Create an empty queue with (queue); (queue 1 2) has elements 1 and 2"
   ([] clojure.lang.PersistentQueue/EMPTY)
   ([& items] (apply conj (queue) items)))
@@ -26,7 +27,7 @@
    :g [:n :o]})
 
 (defn expand [state]
-  "Expand state. (In this case, lookup the key state in the hash-map graph.)"
+  "Expand state. In this case, lookup the state in the hash-map graph."
   (get graph state))
 
 (defn search-step [frontier]
@@ -46,8 +47,9 @@
 
     (into new-frontier new-states)))
 
-;; initialize with (search-step (queue :a)) or (search-step [:a])
+;; start the search with (search-step (queue :a)) or (search-step [:a])
 
+;; dfs and bfs with a hard-coded depth
 (defn dfs-depth-limited [initial-state max-depth]
   (let [frontier (vector initial-state)]
     (dorun max-depth
@@ -60,6 +62,7 @@
 
 (def not-nil? (complement nil?))
 
+;; stop searching when you hit nil
 (defn dfs-lazy [initial-state]
   (let [frontier (vector initial-state)]
     (dorun
@@ -74,7 +77,7 @@
       (take-while not-nil?
         (iterate search-step frontier)))))
 
-;;
+;; Recursive versions
 
 (defn dfs [initial-state]
   (loop [frontier (vector initial-state)]
