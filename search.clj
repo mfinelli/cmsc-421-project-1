@@ -1,5 +1,5 @@
-;; (load-file "dfs.clj")
-;; loads dfs.clj into the repl
+;; (load-file "search.clj")
+;; loads search.clj into the repl
 
 (defn queue
   "Clojure lacks a queue literal; this will act similar to (vector).
