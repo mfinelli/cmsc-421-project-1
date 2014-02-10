@@ -49,35 +49,7 @@
 
 ;; start the search with (search-step (queue :a)) or (search-step [:a])
 
-;; dfs and bfs with a hard-coded depth
-(defn dfs-depth-limited [initial-state max-depth]
-  (let [frontier (vector initial-state)]
-    (dorun max-depth
-      (iterate search-step frontier))))
-
-(defn bfs-depth-limited [initial-state max-depth]
-  (let [frontier (queue initial-state)]
-    (dorun max-depth
-      (iterate search-step frontier))))
-
-(def not-nil? (complement nil?))
-
-;; stop searching when you hit nil
-(defn dfs-lazy [initial-state]
-  (let [frontier (vector initial-state)]
-    (dorun
-      (take-while not-nil?
-        (iterate search-step frontier)))))
-
-;; (iterate) and (take-while) are lazy; (dorun) forces evaluation
-
-(defn bfs-lazy [initial-state]
-  (let [frontier (queue initial-state)]
-    (dorun
-      (take-while not-nil?
-        (iterate search-step frontier)))))
-
-;; Recursive versions
+;; Recursive search (dfs and bfs)
 
 (defn dfs [initial-state]
   (loop [frontier (vector initial-state)]
@@ -97,4 +69,39 @@
     (if (empty? frontier)
       nil
       (recur (search-step frontier)))))
+
+;;
+;; (iterate) generates lazy lists (not evaluated until needed)
+;; (dorun) forces evaluation (for side-effects, e.g. printing)
+;;
+
+;; dfs and bfs with a hard-coded depth
+;; 
+(defn dfs-depth-limited [initial-state max-depth]
+  (let [frontier (vector initial-state)]
+    (dorun max-depth
+      (iterate search-step frontier))))
+
+(defn bfs-depth-limited [initial-state max-depth]
+  (let [frontier (queue initial-state)]
+    (dorun max-depth
+      (iterate search-step frontier))))
+
+(def not-nil? (complement nil?))
+
+;; dfs that stops searching when you hit nil
+(defn dfs-lazy [initial-state]
+  (let [frontier (vector initial-state)]
+    (dorun
+      (take-while not-nil?
+        (iterate search-step frontier)))))
+
+;; (iterate) and (take-while) are lazy; (dorun) forces evaluation
+
+(defn bfs-lazy [initial-state]
+  (let [frontier (queue initial-state)]
+    (dorun
+      (take-while not-nil?
+        (iterate search-step frontier)))))
+
 
