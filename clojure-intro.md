@@ -12,11 +12,13 @@ Otherwise, keep reading...
 Getting Clojure
 ---------------
 
-Note: If you're running Windows and don't have [cygwin](http://cygwin.com/) installed, I *strongly* recommend installing cygwin first (including either the wget or curl package) and running all of the following commands from the cygwin terminal.
+Note: If you're running Windows and don't have [cygwin](http://cygwin.com/) installed, I *strongly* recommend installing cygwin first (make sure to install either the wget or curl package) and running all of the following commands from the cygwin terminal.
 
 **Note: Clojure requires the [java runtime environment](http://java.com/en/download/index.jsp).** Most computers should already have this installed; you can quickly verify this by typing "java -version" at the terminal.
 
 [Leiningen](http://leiningen.org/#install) is the easiest way to get/use Clojure. Download the script, place it somewhere on your $PATH, set lein to be executable and run "lein self-install". Step by step terminal instructions below:
+
+(If ~/bin isn't already on your $PATH, and you're on cygwin/linux put "export PATH=$PATH:~/bin" in your .bashrc; on OS X, put it in your .bash_profile)
 
     mkdir ~/bin
     cd ~/bin
@@ -27,8 +29,6 @@ Note: If you're running Windows and don't have [cygwin](http://cygwin.com/) inst
     
     chmod a+x ~/bin/lein
     lein self-install
-    
-(If ~/bin isn't already on your $PATH, and you're on cygwin/linux put "export PATH=$PATH:~/bin" in your .bashrc; on OS X, put it in your .bash_profile)
     
 To check the installation, start up a read-eval-print-loop with
 
