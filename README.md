@@ -55,6 +55,11 @@ Return the *density* of solutions on an n x n board where density is number of s
 
 Finally, plot a graph of solution count as a function of board size (n) from n = 1 to 10. (You may use whatever plotting software you like.)
 
+Starter Files
+-------------
+
+We have provided lastname\_project1.clj and public\_test.clj as a skeleton file and a basic test file respectively.
+
 Submission
 ----------
 
