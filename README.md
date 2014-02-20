@@ -11,7 +11,7 @@ What is the maximum number of queens that can be placed on an n x n chessboard s
 
 The answer is n queens.
 
-However, the *number* of different ways the n queens can be placed on an n x n chessboard depends on n.
+However, the number of *different ways* the n queens can be placed on an n x n chessboard depends on n.
 
 [Algebraic notation](https://en.wikibooks.org/wiki/Chess/Algebraic_notation) notates the standard 8 x 8 board in the following way (*files* are labeled a to h and *ranks* are numbered 1 to 8):
 
