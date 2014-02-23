@@ -63,7 +63,7 @@ We have provided lastname\_project1.clj and public\_test.clj as a skeleton file 
 Submission
 ----------
 
-Name your code lastname_project1.clj, your plot lastname_project1.png and push it to the submit server
+Name your code lastname_project1.clj, your plot lastname_project1.png and push it to the submit server (submit.cs.umd.edu).
 
 Note that we will be grading your projects by script, therefore it is very important to use the *exact* function names and arities described above. (You may change the name of the formal parameters if you wish, as this will not affect the grading scripts.)
 
