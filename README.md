@@ -1,5 +1,5 @@
-Project 1 
-=========
+Project 1 (due March 13)
+========================
 
 > "Greetings, Professor Falken. Shall we play a game?
 >
