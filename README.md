@@ -72,3 +72,19 @@ We will provide a short set of public tests. We strongly recommend you write you
 Don't use the ns macro - if you don't know what that is, don't worry about it.
 
 All of the release tests will be suffixed with "-test". Please don't name any of your own functions in lastname_project1.clj this way to avoid naming collisions.
+
+Grading Rubric
+--------------
+
+The grading will break down (roughly) into
+
+- 90% - Correct performance
+- 5% - Plot
+- 5% - Documentation and coding style
+
+Well-formatted Clojure code looks like this (see the Source Code Layout & Organization section):
+
+https://github.com/bbatsov/clojure-style-guide#source-code-layout--organization
+
+We're not going to be too strict about these rules nor should you treat them as absolutes. Just try to use some common sense.
+(If *you* can't easily follow the control flow of your own code, that's a bad sign.)
