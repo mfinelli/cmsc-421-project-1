@@ -49,7 +49,7 @@ Use Control+D or (exit) or (quit) to leave the REPL.
 In addition, place the following in your ~/.lein/profiles.clj (create profiles.clj if necessary). You don't *need* to do this right away, but it will be useful later.
 
     {:user {:plugins [[lein-exec "0.3.1"]]
-            :dependencies [[org.clojure/core.logic "0.8.5"]]}}
+            :dependencies [[org.clojure/core.logic "0.8.7"]]}}
 
 To check if dependencies are working correctly, try:
     
