@@ -1,4 +1,6 @@
-;;;; Put your name and section here
+;; Mario Finelli
+;; CMSC 421 - Section 0201
+;; Project 1 (Due 13 March 2014)
 
 (defn qextends?
   "Returns true if a queen at rank extends partial-sol."
