@@ -27,44 +27,20 @@
   "Given a vector *partial-sol-list* of all partial solutions of length k,
   returns a vector of all partial solutions of length k + 1."
   [n partial-sol-list]
-    ;;(for [partial-sol partial-sol-list]
-    ;;  (for [i (range 1 (+ 1 n))]
-    ;;    ;;(println (str "partial-sol: " partial-sol " i: " i)))))
-    ;;    (if (qextends? partial-sol i)
-    ;;      ;; add to soln list
-    ;;      ;;(println (str "solution: " (conj partial-sol i))
-    ;;      (conj partial-sol i)
-    ;;      ;; add empty to soln list
-    ;;      ;;(println (str "not solution: " partial-sol " " i))
-    ;;      []
-    ;;      ))))
-
-    ;;(reduce
-    ;;  (fn [solutions partial-sol]
-    ;;    (for [i (range 1 (+ 1 n))]
-    ;;      (if (qextends? partial-sol i)
-    ;;        (conj solutions (conj partial-sol i)))
-    ;;    ))
-    ;;    []
-    ;;  partial-sol-list))
-
-(vec (remove nil? (reduce into
-
-(reduce
-  (fn [solutions partial-sol]
-    (conj solutions 
-
-    (map
-      (fn [i]
-        (if (qextends? partial-sol i)
-          (conj partial-sol i)
-          nil))
-      (range 1 (+ 1 n)))
-
-)) [] partial-sol-list )
-
-)))
-)
+    (vec 
+      (remove nil? 
+        (reduce into
+          (reduce
+            (fn [solutions partial-sol]
+              (conj solutions 
+                (map
+                  (fn [i]
+                    (if (qextends? partial-sol i)
+                      (conj partial-sol i)
+                      nil))
+                  (range 1 (+ 1 n)))))
+            []
+            partial-sol-list)))))
   
 (defn sol-count
   "Returns the total number of n-queens solutions on an n x n board."
