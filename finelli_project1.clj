@@ -8,15 +8,20 @@
 (defn qextends?
   "Returns true if a queen at rank extends partial-sol."
   [partial-sol rank]
-    (if (= 0 (count partial-sol))
-      true
-      (if (= (peek partial-sol) rank)
-        false
-        (if (= (+ (peek partial-sol) (count partial-sol)) rank)
-          false
-          (if (= (- (peek partial-sol) (count partial-sol)))
+    (let [queen (first partial-sol) 
+          cnt (count partial-sol)
+          rem (vec (rest partial-sol))]
+      ;;(println (str "queen is: " queen " rest is: " rem))
+      ;;(println (str "count is: " cnt))
+        (if (zero? cnt)
+          true
+          (if (= queen rank)
             false
-            (qextends? (pop partial-sol) rank))))))
+            (if (= (+ queen cnt) rank)
+              false
+              (if (= (- queen cnt) rank)
+                false
+                (qextends? rem rank)))))))
 
 (defn qextend
   "Given a vector *partial-sol-list* of all partial solutions of length k,
