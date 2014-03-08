@@ -52,17 +52,18 @@
 ;; finally we convert to a vector from a lazy sequence after removing all of
 ;; the nil values.
   
+;; generate all the solutions for a board of size n*n then return the size of
+;; the result
 (defn sol-count
   "Returns the total number of n-queens solutions on an n x n board."
   [n]
-    (count
-      (reduce
-        (fn [solutions i]
-          (qextend n solutions)) 
-          [[]]
-          (range 1 (inc n)))))
+    (count  ;; count solutions
+      (reduce ;; only apply qextend to previous valid partial solutions
+        (fn [solutions i] ;; create a new solutions list
+          (qextend n solutions)) ;; qextend current valid solutions
+          [[]] ;; start with empty solution
+          (range 1 (inc n))))) ;; for board of size n*n
 
-  
 (defn sol-density
   "Return the density of solutions on an n x n board."
   [n]
