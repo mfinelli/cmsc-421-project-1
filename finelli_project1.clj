@@ -64,7 +64,9 @@
           [[]] ;; start with empty solution
           (range 1 (inc n))))) ;; for board of size n*n
 
+;; compute the density by dividing the number of valid placements by n^n which
+;; is the number of *possible* placements
 (defn sol-density
   "Return the density of solutions on an n x n board."
   [n]
-    nil)
+    (/ (sol-count n) (Math/pow n n)))
