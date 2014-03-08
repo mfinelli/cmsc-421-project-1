@@ -11,17 +11,15 @@
     (let [queen (first partial-sol) 
           cnt (count partial-sol)
           rem (vec (rest partial-sol))]
-      ;;(println (str "queen is: " queen " rest is: " rem))
-      ;;(println (str "count is: " cnt))
-        (if (zero? cnt)
-          true
-          (if (= queen rank)
+      (if (zero? cnt)
+        true
+        (if (= queen rank)
+          false
+          (if (= (+ queen cnt) rank)
             false
-            (if (= (+ queen cnt) rank)
+            (if (= (- queen cnt) rank)
               false
-              (if (= (- queen cnt) rank)
-                false
-                (qextends? rem rank)))))))
+              (qextends? rem rank)))))))
 
 (defn qextend
   "Given a vector *partial-sol-list* of all partial solutions of length k,
