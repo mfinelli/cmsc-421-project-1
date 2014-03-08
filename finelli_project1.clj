@@ -40,7 +40,7 @@
                     (if (qextends? partial-sol i)
                       (conj partial-sol i)
                       nil))
-                  (range 1 (+ 1 n)))))
+                  (range 1 (inc n)))))
             []
             partial-sol-list)))))
 ;; the map function here takes a checks if qextends? the partial solution from
