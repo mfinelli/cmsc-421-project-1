@@ -9,7 +9,7 @@
   "Returns true if a queen at rank extends partial-sol."
   [partial-sol rank]
     (for [queen partial-sol
-          pos (range 1 (count partial-sol)) :while (< pos (count partial-sol))]
+          pos (range 0 (- 1 (count partial-sol)))]
       (if (= queen rank)
         false
         (if (= (+ queen (- (count partial-sol) pos)) rank)
