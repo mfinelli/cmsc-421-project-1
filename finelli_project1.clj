@@ -8,18 +8,18 @@
 (defn qextends?
   "Returns true if a queen at rank extends partial-sol."
   [partial-sol rank]
-    (let [queen (first partial-sol) 
-          cnt (count partial-sol)
-          rem (vec (rest partial-sol))]
-      (if (zero? cnt)
+    (let [queen (first partial-sol)     ;; the queen we are checking against
+          cnt (count partial-sol)       ;; how many queens in the solution
+          rmn (vec (rest partial-sol))] ;; remaining queens after the first
+      (if (zero? cnt) ;; we didn't run into any errors: return true
         true
-        (if (= queen rank)
+        (if (= queen rank) ;; we can't have two queens in the same row
           false
-          (if (= (+ queen cnt) rank)
+          (if (= (+ queen cnt) rank) ;; conflict on the upper diagonal
             false
-            (if (= (- queen cnt) rank)
+            (if (= (- queen cnt) rank) ;; conflict on the lower diagonal
               false
-              (qextends? rem rank)))))))
+              (qextends? rmn rank))))))) ;; recurse the remaining queens
 
 (defn qextend
   "Given a vector *partial-sol-list* of all partial solutions of length k,
