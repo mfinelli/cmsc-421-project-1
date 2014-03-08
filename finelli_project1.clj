@@ -55,7 +55,13 @@
 (defn sol-count
   "Returns the total number of n-queens solutions on an n x n board."
   [n]
-    nil)
+    (count
+      (reduce
+        (fn [solutions i]
+          (qextend n solutions)) 
+          [[]]
+          (range 1 (inc n)))))
+
   
 (defn sol-density
   "Return the density of solutions on an n x n board."
