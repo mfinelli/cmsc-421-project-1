@@ -2,11 +2,27 @@
 ;; CMSC 421 - Section 0201
 ;; Project 1 (Due 13 March 2014)
 
+;; for each queen in the partial solution check if it is at the same row as
+;; the new queen, then check if it conflicts vertically with the new queen
+;; (number of columns to the end +/- current rank)
 (defn qextends?
   "Returns true if a queen at rank extends partial-sol."
   [partial-sol rank]
-    nil)
- 
+    (let [queen (first partial-sol) 
+          cnt (count partial-sol)
+          rem (vec (rest partial-sol))]
+      ;;(println (str "queen is: " queen " rest is: " rem))
+      ;;(println (str "count is: " cnt))
+        (if (zero? cnt)
+          true
+          (if (= queen rank)
+            false
+            (if (= (+ queen cnt) rank)
+              false
+              (if (= (- queen cnt) rank)
+                false
+                (qextends? rem rank)))))))
+
 (defn qextend
   "Given a vector *partial-sol-list* of all partial solutions of length k,
   returns a vector of all partial solutions of length k + 1."
