@@ -21,11 +21,23 @@
               false
               (qextends? rmn rank))))))) ;; recurse the remaining queens
 
+;; loop through the partial solutions and then through 1->n if that qextends
+;; the partial solution then add it to the new partial solution list
 (defn qextend
   "Given a vector *partial-sol-list* of all partial solutions of length k,
   returns a vector of all partial solutions of length k + 1."
   [n partial-sol-list]
-    nil)
+    (for [partial-sol partial-sol-list]
+      (for [i (range 1 (+ 1 n))]
+        ;;(println (str "partial-sol: " partial-sol " i: " i)))))
+        (if (qextends? partial-sol i)
+          ;; add to soln list
+          ;;(println (str "solution: " (conj partial-sol i))
+          (conj partial-sol i)
+          ;; add empty to soln list
+          ;;(println (str "not solution: " partial-sol " " i))
+          []
+          ))))
   
 (defn sol-count
   "Returns the total number of n-queens solutions on an n x n board."
