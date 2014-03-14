@@ -40,5 +40,5 @@
 ;; problem 4: sol-density
 (deftest sol-density-test1
   (is (= 0.0032 (sol-density 5))))
- 
+
 (run-tests)
