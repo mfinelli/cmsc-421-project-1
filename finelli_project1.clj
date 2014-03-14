@@ -29,12 +29,12 @@
   "Given a vector *partial-sol-list* of all partial solutions of length k,
   returns a vector of all partial solutions of length k + 1."
   [n partial-sol-list]
-    (vec 
-      (remove nil? 
+    (vec
+      (remove nil?
         (reduce into
           (reduce
             (fn [solutions partial-sol]
-              (conj solutions 
+              (conj solutions
                 (map
                   (fn [i]
                     (if (qextends? partial-sol i)
@@ -51,7 +51,7 @@
 ;; result for each of the partial solutions.
 ;; finally we convert to a vector from a lazy sequence after removing all of
 ;; the nil values.
-  
+
 ;; generate all the solutions for a board of size n*n then return the size of
 ;; the result
 (defn sol-count
